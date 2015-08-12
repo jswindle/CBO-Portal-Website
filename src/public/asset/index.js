@@ -54,7 +54,54 @@ app.factory('myErrorRequest', [function($location, CookieStore) {
 
 }]);
 
-app.factory('myCheckToken', [function ($http, $location, $interval, AuthenticationService) {
+app.factory('ClockSrv', function($interval){
+    'use strict';
+    var service = {
+        clock: addClock,
+        cancelClock: removeClock
+    };
+
+    var clockElts = [];
+    var clockTimer = null;
+    var cpt = 0;
+
+    function addClock(fn){
+        var elt = {
+            id: cpt++,
+            fn: fn
+        };
+        clockElts.push(elt);
+        if(clockElts.length === 1){ startClock(); }
+        return elt.id;
+    }
+    function removeClock(id){
+        for(var i in clockElts){
+            if(clockElts[i].id === id){
+                clockElts.splice(i, 1);
+            }
+        }
+        if(clockElts.length === 0){ stopClock(); }
+    }
+    function startClock(){
+        if(clockTimer === null){
+            clockTimer = $interval(function(){
+                for(var i in clockElts){
+                    clockElts[i].fn();
+                }
+            }, 1000);
+        }
+    }
+    function stopClock(){
+        if(clockTimer !== null){
+            $interval.cancel(clockTimer);
+            clockTimer = null;
+        }
+    }
+
+    return service;
+});
+
+app.factory('myCheckToken', function ($http, $location, $interval, CookieStore, AuthenticationService) {
 
     var checkToken = {};
 
@@ -130,7 +177,7 @@ app.factory('myCheckToken', [function ($http, $location, $interval, Authenticati
 
     return checkToken;
 
-}]);
+});
 
 app.config(['$httpProvider', function ($httpProvider) {
     //Reset headers to avoid OPTIONS request (aka preflight)
@@ -385,6 +432,8 @@ app.run(function ($rootScope, $http, $location, $interval, $window, Authenticati
 
     var returnData = CookieStore.getData();
 
+    myCheckToken.start_refresh_token();
+
     $rootScope.$on("$routeChangeStart", function (event, nextRoute) {
         //redirect only if both isAuthenticated is false and no token is set
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication && !AuthenticationService.isAuthenticated && !$window.sessionStorage.token) {
@@ -398,7 +447,6 @@ app.run(function ($rootScope, $http, $location, $interval, $window, Authenticati
 
         if (returnData) {
             start_time_idle();
-            myCheckToken.start_refresh_token();
         }
 
     });
@@ -423,7 +471,7 @@ app.factory('AuthenticationService', function () {
 
 });
 
-app.factory('CookieStore', function ($rootScope, $interval, $window, $cookieStore, AuthenticationService, myCheckToken) {
+app.factory('CookieStore', function ($rootScope, $interval, $window, $cookieStore, AuthenticationService) {
     return {
         put: function (name, value) {
             $cookieStore.put(name, value);
@@ -521,7 +569,6 @@ app.factory('CookieStore', function ($rootScope, $interval, $window, $cookieStor
             $rootScope.completeName = false;
 
             stop_time_idle();
-            myCheckToken.stop_refresh_token();
 
             return true;
         }
@@ -530,8 +577,8 @@ app.factory('CookieStore', function ($rootScope, $interval, $window, $cookieStor
 
 
 
-app.controller('BodyController', ['$rootScope', '$scope', '$interval', '$http', '$location', 'CookieStore', 'AuthenticationService',
-    function ($rootScope, $scope, $interval, $http, $location, CookieStore, AuthenticationService) {
+app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
+    function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService) {
 
         $rootScope.full_screen = false;
         if (CookieStore.get('cboAdmin_cookie_role') == 'admin') {
@@ -621,12 +668,12 @@ app.controller('BodyController', ['$rootScope', '$scope', '$interval', '$http', 
 
         };
 
-        var loopRefreshMe = $interval(function() {
-            if(AuthenticationService.isAuthenticated == true)
-            {
-                console.log(AuthenticationService);
-            }
-        }, 1000);
+//        var loopRefreshMe = $interval(function() {
+//            if(AuthenticationService.isAuthenticated == true)
+//            {
+//                console.log(AuthenticationService);
+//            }
+//        }, 1000);
 
         $rootScope.doingResolve = true;
 
@@ -2870,11 +2917,10 @@ app.controller('HeartbeatController', ['$rootScope', '$scope',
     }
 ]);
 
-app.controller('LoginController', ['$rootScope', '$scope', '$interval', '$http', '$location', 'AuthenticationService', 'CookieStore', 'myCheckToken',
-    function ($rootScope, $scope, $interval, $http, $location, AuthenticationService, CookieStore, myCheckToken) {
+app.controller('LoginController', ['$rootScope', '$scope', '$interval', '$http', '$location', 'AuthenticationService', 'CookieStore',
+    function ($rootScope, $scope, $interval, $http, $location, AuthenticationService, CookieStore) {
 
         stop_time_idle();
-        myCheckToken.stop_refresh_token();
 
         $rootScope.full_screen = true;
         $rootScope.doingResolve = false;
@@ -2989,7 +3035,6 @@ app.controller('LoginController', ['$rootScope', '$scope', '$interval', '$http',
 
                                             }
                                             start_time_idle();
-                                            myCheckToken();
                                             $location.path('/');
                                         } else {
                                             showError(response.error.message, 1);
