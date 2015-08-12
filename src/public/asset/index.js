@@ -32,6 +32,106 @@ app.factory('headerInjector', [function (SessionService) {
     return headerInjector;
 }]);
 
+app.factory('myErrorRequest', [function($location, CookieStore) {
+
+    var errorRequest = {};
+
+    errorRequest.sendMessage = function(response, status, request_url, request_data)
+    {
+        if(status == 401)
+        {
+
+        }
+        else
+        {
+            CookieStore.clearData();
+            showError(response.message, 2);
+            $location.path("/login");
+        }
+    };
+
+    return errorRequest;
+
+}]);
+
+app.factory('myCheckToken', [function ($http, $location, $interval, AuthenticationService) {
+
+    var checkToken = {};
+
+    console.log($interval);
+
+    var timeInterval = 1 * 10 * 1 * 1000;
+    var startLoopRefreshMe;
+    var loopRefreshMe = function() {
+
+        console.log("try loop");
+        var refresh_token = AuthenticationService.refresh_token;
+
+        if(refresh_token.toString().length > 0)
+        {
+
+            var auth = base64_encode(globalConfig.client_id + ':' + globalConfig.client_secret);
+            var grant_type = encodeURIComponent(globalConfig.grant_type);
+            var uri = auth_url + 'oauth2/token';
+            var send = {
+                grant_type: 'refresh_token',
+                refresh_token: AuthenticationService.refresh_token
+            };
+
+            $http.post(uri, $.param(send), {
+                headers: {
+                    'Authorization': 'Basic ' + auth
+                }
+            })
+                .success(function (response) {
+
+                    clearTimeout(session_timeout.warningTimer);
+
+                    CookieStore.put('cboAdmin_cookie_token', response.access_token);
+                    CookieStore.put('cboAdmin_cookie_refresh_token', response.refresh_token);
+                    AuthenticationService.token = response.access_token;
+                    AuthenticationService.refresh_token = response.refresh_token;
+
+                })
+                .error(function (response, status) {
+
+                    var error = response.toString();
+                    if(typeof response.message !== 'undefined' && response.message)
+                        error = response.message.toString();
+
+                    showError(error, 1);
+
+                    $location.path("/login");
+
+                });
+
+        }
+
+    };
+
+
+    checkToken.stop_refresh_token = function() {
+
+        console.log("try stop loop");
+
+        if (angular.isDefined(startLoopRefreshMe)) {
+            console.log("try stop loop success");
+            $interval.cancel(startLoopRefreshMe);
+            startLoopRefreshMe = undefined;
+        }
+
+    };
+
+    checkToken.start_refresh_token = function() {
+
+        startLoopRefreshMe = $interval(loopRefreshMe, timeInterval);
+
+    };
+
+    return checkToken;
+
+}]);
+
 app.config(['$httpProvider', function ($httpProvider) {
     //Reset headers to avoid OPTIONS request (aka preflight)
     $httpProvider.defaults.headers.common = {};
@@ -41,7 +141,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common['Accept'] = '*/*';
-    //$httpProvider.interceptors.push('headerInjector');
+    $httpProvider.interceptors.push('headerInjector');
 
 }]);
 
@@ -281,7 +381,7 @@ function ($window, $rootScope) {
 }]);
 
 
-app.run(function ($rootScope, $http, $location, $window, AuthenticationService, CookieStore) {
+app.run(function ($rootScope, $http, $location, $interval, $window, AuthenticationService, CookieStore, myCheckToken) {
 
     var returnData = CookieStore.getData();
 
@@ -298,6 +398,7 @@ app.run(function ($rootScope, $http, $location, $window, AuthenticationService, 
 
         if (returnData) {
             start_time_idle();
+            myCheckToken.start_refresh_token();
         }
 
     });
@@ -322,7 +423,7 @@ app.factory('AuthenticationService', function () {
 
 });
 
-app.factory('CookieStore', function ($rootScope, $window, $cookieStore, AuthenticationService) {
+app.factory('CookieStore', function ($rootScope, $interval, $window, $cookieStore, AuthenticationService, myCheckToken) {
     return {
         put: function (name, value) {
             $cookieStore.put(name, value);
@@ -420,6 +521,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
             $rootScope.completeName = false;
 
             stop_time_idle();
+            myCheckToken.stop_refresh_token();
 
             return true;
         }
@@ -428,8 +530,8 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
 
 
-app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
-    function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService) {
+app.controller('BodyController', ['$rootScope', '$scope', '$interval', '$http', '$location', 'CookieStore', 'AuthenticationService',
+    function ($rootScope, $scope, $interval, $http, $location, CookieStore, AuthenticationService) {
 
         $rootScope.full_screen = false;
         if (CookieStore.get('cboAdmin_cookie_role') == 'admin') {
@@ -518,6 +620,13 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                 });
 
         };
+
+        var loopRefreshMe = $interval(function() {
+            if(AuthenticationService.isAuthenticated == true)
+            {
+                console.log(AuthenticationService);
+            }
+        }, 1000);
 
         $rootScope.doingResolve = true;
 
@@ -2761,10 +2870,11 @@ app.controller('HeartbeatController', ['$rootScope', '$scope',
     }
 ]);
 
-app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location', 'AuthenticationService', 'CookieStore',
-    function ($rootScope, $scope, $http, $location, AuthenticationService, CookieStore) {
+app.controller('LoginController', ['$rootScope', '$scope', '$interval', '$http', '$location', 'AuthenticationService', 'CookieStore', 'myCheckToken',
+    function ($rootScope, $scope, $interval, $http, $location, AuthenticationService, CookieStore, myCheckToken) {
 
         stop_time_idle();
+        myCheckToken.stop_refresh_token();
 
         $rootScope.full_screen = true;
         $rootScope.doingResolve = false;
@@ -2812,14 +2922,14 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
                             if (responseClient.success == true && responseClient.total > 0) {
                                 for (var i = 0; i < responseClient.total; i++) {
-                                    if(get_hosting_name == responseClient.data[i].url)
-                                    {
-                                    grand_access = true;
-                                    get_id = responseClient.data[i]._id;
-                                    get_redirect_url = responseClient.data[i].url;
-                                    var myEl = angular.element(document.querySelector('body'));
-                                    myEl.addClass('cbp-spmenu-push');
-                                    }
+//                                    if(get_hosting_name == responseClient.data[i].url)
+//                                    {
+                                        grand_access = true;
+                                        get_id = responseClient.data[i]._id;
+                                        get_redirect_url = responseClient.data[i].url;
+                                        var myEl = angular.element(document.querySelector('body'));
+                                        myEl.addClass('cbp-spmenu-push');
+//                                    }
                                 }
                             }
 
@@ -2879,6 +2989,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
                                             }
                                             start_time_idle();
+                                            myCheckToken();
                                             $location.path('/');
                                         } else {
                                             showError(response.error.message, 1);
