@@ -1,19 +1,16 @@
 <div class="row">
     <div class="col-md-12">
-
         <div class="card">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 col-sm-12">
                     <h2>
                     {{ student.first_name }} {{ student.last_name }}
                     <span class="last-update">Last update : &nbsp {{ student.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
                     </h2>
                 </div>
             </div>
-            <div class="row vertical-divider">
-                <div class="col-md-5 data-content">
-
-                    <div class="row col-md-4">
+            <div class="row">
+                    <div class="col-md-2 col-sm-12">
                         <div class="title">
                             <p class="subhead">PERSONAL INFO</p>
                             <hr>
@@ -37,7 +34,7 @@
                             <br/> {{student.address}}
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2 col-sm-12">
                         <div class="title">
                             <p class="subhead">EMERGENCY CONTACTS</p>
                             <hr>
@@ -55,7 +52,7 @@
                             <br/> {{student.emergency2_phone | phonenumber}}
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2  col-sm-12">
                         <div class="title">
                             <p class="subhead">Case Workers</p>
                             <hr>
@@ -66,397 +63,372 @@
                                 <span>{{person.fullname}}</span>
                                 <br/>
                             </div>
-
                         </div>
                     </div>
-
-                    <div class="clearfix"></div>
-
-                </div>
-                <div class="col-md-7 data-content" style="padding-left:65px;">
-                    <div ng-show="academic">
-                        <div class="row col-md-4">
-                            <div class="title">
-                                <p class="subhead">ACADEMIC INFO</p>
-                                <hr>
-                            </div>
-                            <div class="content" style="margin-bottom:20px;">
-                                <b>Current School</b> {{studentdetails.transcriptTerm.school.schoolName}}
-                                <br/>
-                                <b>Expected Graduation Year</b> {{studentdetails.transcriptTerm.schoolYear}}
-                                <br/>
-                                <b>Grade level</b> N/A
-                                <br/>
-                            </div>
-                            <a href="#" class="button" ng-click="showSchoolHistory()" style="display:inline-block">SEE SCHOOL HISTORY</a>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="title">
-                                <p class="subhead">&nbsp;</p>
-                            </div>
-                            <div class="content" style="margin-top:20px;">
-                                <b>Language Spoken at Home</b> N/A
-                                <br/>
-                                <b>IEP</b> N/A
-                                <br/>
-                                <b>S504</b> N/A
-                                <br/>
-                                <b>Free or Reduced Lunch</b> N/A
-                                <br/>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="title">
-                                <p class="subhead">CURRENT COURSES - <b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
-                                <hr>
-                            </div>
-                            <div class="content">
-                                <div ng-repeat="course in studentdetails.transcriptTerm.courses.course | unique: 'courseTitle' ">
-                                    <span>{{course.courseTitle}}</span>
-                                    <br/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="clearfix"></div>
-                    </div>
-
-                    <div ng-show="sch_history">
-
+                
+                    
+                    
+                    <div class="col-md-2 col-md-offset-1 col-sm-12">
                         <div class="title">
-                            <p class="subhead">School History</p>
+                            <p class="subhead">ACADEMIC INFO</p>
+                            <hr>
+                        </div>
+                        <div class="content" style="margin-bottom:20px;">
+                            <b>Current School</b> {{studentdetails.transcriptTerm.school.schoolName}}
+                            <br/>
+                            <b>Expected Graduation Year</b> {{studentdetails.transcriptTerm.schoolYear}}
+                            <br/>
+                            <b>Grade level</b> N/A
+                            <br/>
                         </div>
                         <div class="content">
-
-                            <scrollable-table watch="visibleProjects">
-
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>School Name</th>
-                                            <th>School Year</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-if="sch_history" ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear'">
-                                            <td>
-                                                {{data.school.schoolName}}
-                                            </td>
-                                            <td>
-                                                {{data.schoolYear}}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
-
-                            </scrollable-table>
-
+                            <b>Language Spoken at Home</b> N/A
+                            <br/>
+                            <b>IEP</b> N/A
+                            <br/>
+                            <b>S504</b> N/A
+                            <br/>
+                            <b>Free or Reduced Lunch</b> N/A
+                            <br/>
                         </div>
-
-                        <div class="clearfix"></div>
+                        <a href="#" ng-show="academic" class="button" ng-click="showSchoolHistory()" style="display:inline-block">SEE SCHOOL HISTORY</a>
                     </div>
-                    <a href="#" class="button pull-right" ng-click="closeSchoolHistory()" ng-show="sch_history">Close</a>
-                </div>
+                    <div class="col-md-2 col-sm-12">
+                        <div class="title">
+                            <p class="subhead">CURRENT COURSES - <b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
+                            <hr>
+                        </div>
+                        <div class="content">
+                            <div ng-repeat="course in studentdetails.transcriptTerm.courses.course | unique: 'courseTitle' ">
+                                <span>{{course.courseTitle}}</span>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
 
             </div>
-            <!-- end of row -->
+            <div class="row">
+                <div class="col-md-5 col-md-offset-7">
+                    <div ng-show="sch_history">
 
-            <div class="clearfix"></div>
+                            <div class="title">
+                                <p class="subhead">School History</p>
+                            </div>
+                            <div class="content">
 
-            <a href="javascript:void(0)" onclick="hideContent(this)" class="pull-right menu-up" style="display: block;"><i class="glyphicon glyphicon-menu-up"></i></a>
-            <a href="javascript:void(0)" onclick="showContent(this)" class="pull-right menu-down" style="display: none;"><i class="glyphicon glyphicon-menu-down"></i></a>
+                                <scrollable-table watch="visibleProjects">
 
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>School Name</th>
+                                                <th>School Year</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-if="sch_history" ng-repeat="data in studentdetails.otherTranscriptTerms.transcriptTerm | orderBy: '-schoolYear'">
+                                                <td>
+                                                    {{data.school.schoolName}}
+                                                </td>
+                                                <td>
+                                                    {{data.schoolYear}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+
+                                </scrollable-table>
+
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <a href="#" class="button pull-right" ng-click="closeSchoolHistory()" ng-show="sch_history">Close</a>
+                </div>
+            </div>
         </div>
-
     </div>
 
 </div>
 <div>
-    <div class="row">
-        <div class="col-md-12">
+    <div class="attendance-class">
 
-            <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li class="active"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior">ATTENDANCE AND BEHAVIOR</a></li>
-                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation">PROGRAM PARTICIPATION</a></li>
-                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript">TRANSCRIPT</a></li>
-            </ul>
+        <div class="row">
+            <div class="col-md-12">
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="attendance_and_behavior">
-                    <ul class="flexbox attendance-behavior">
-                        <li>
-                            ATTENDANCE DATES
-                            <span class="first-col-separator">
-                            </span>
-                        </li>
-                        <li>M</li>
-                        <li>T</li>
-                        <li>W</li>
-                        <li>TH</li>
-                        <li>F</li>
-                        <li>
-                             <span class="last-col-separator">
-                            </span>
-                            DELTA CHANGE
-                        </li>
-                    </ul>
-                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        <div class="panel attendance-behavior">
+                <ul class="nav nav-tabs nav-justified student-detail" role="tablist">
+                    <li class="active"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior">ATTENDANCE AND BEHAVIOR</a></li>
+                    <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation">PROGRAM PARTICIPATION</a></li>
+                    <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript">TRANSCRIPT</a></li>
+                </ul>
 
-                            <div class="panel-heading attendance-behavior" role="tab" id="headingOne">
-                                <h4 class="panel-title">
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="attendance_and_behavior">
+                        <ul class="flexbox attendance-behavior">
+                            <li class="first-col-separator">ATTENDANCE DATES</li>
+                            <li>M</li>
+                            <li>T</li>
+                            <li>W</li>
+                            <li>TH</li>
+                            <li>F</li>
+                            <li class="last-col-separator">
+                                DELTA CHANGE
+                            </li>
+                        </ul>
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel attendance-behavior">
+
+                                <div class="panel-heading attendance-behavior" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
                                 
                                  <ul class="flexbox attendance-behavior">
-                                    <li>
-                                        7/21/15 - 7/31/15
-                                        <span class="first-col-separator-list">
-                            </span>
-                                     </li>
+                                    <li class="first-col-separator">7/21/15 - 7/31/15</li>
                                     <li>100%</li>
                                     <li>100%</li>
                                     <li class="unexcused">10%</li>
                                     <li>100%</li>
                                     <li>100%</li>
-                                    <li>
-                                        <span class="last-col-separator-list">
-                            </span>
-                                        -12%
+                                    <li class="last-col-separator">-12%
                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
                                      </li>
                                 </ul>   
                                 
                             </h4>
-                            </div>
-                            <!-- panel heading -->
-                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                <div class="panel-body attendance-behavior">
-                                    <div class="period-col">
-                                        <ul class="period-col menu">
-                                            <li>PERIOD 1</li>
-                                            <li>PERIOD 2</li>
-                                            <li>PERIOD 3</li>
-                                            <li>PERIOD 4</li>
-                                            <li>PERIOD 5</li>
-                                            <li>PERIOD 6</li>
-                                            <li>&nbsp;</li>
-                                            <li>BEHAVIOR</li>
-                                        </ul>
-                                    </div>
-                                    <div class="attendance-content">
-                                        <div class="monday">
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item"></div>
-
-                                        </div>
-                                        <div class="tuesday">
-                                            <div class="grid-item late"></div>
-                                            <div class="grid-item excused"></div>
-                                            <div class="grid-item excused"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item"></div>
-
-                                        </div>
-                                        <div class="wednesday">
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item late"></div>
-                                            <div class="grid-item unexcused"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item"></div>
-                                            <div class="grid-item unexcused"></div>
-                                        </div>
-                                        <div class="thursday">
-                                            <div class="grid-item late"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item "></div>
-
-                                        </div>
-                                        <div class="friday">
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item "></div>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="attendance-legend ">
-                                        <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">LEGEND</a>
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
-                                        <div class="panel legend-list" ng-show="icon_legend">
-                                            <!-- Default panel contents -->
-                                            <div class="panel-heading">
-                                                LEGEND
-                                                <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
-                                            </div>
-                                            <ul class="list-group legend-list">
-                                                <li class="list-group-item present">PRESENT</li>
-                                                <li class="list-group-item excused">EXCUSED</li>
-                                                <li class="list-group-item late">LATE</li>
-                                                <li class="list-group-item holiday">HOLIDAY</li>
-                                                <li class="list-group-item unexcused">UNEXCUSED</li>
+                                </div>
+                                <!-- panel heading -->
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body attendance-behavior">
+                                        <div class="period-col">
+                                            <ul class="period-col menu">
+                                                <li>PERIOD 1</li>
+                                                <li>PERIOD 2</li>
+                                                <li>PERIOD 3</li>
+                                                <li>PERIOD 4</li>
+                                                <li>PERIOD 5</li>
+                                                <li>PERIOD 6</li>
+                                                <li>&nbsp;</li>
+                                                <li>BEHAVIOR</li>
                                             </ul>
                                         </div>
-                                        
+                                        <div class="attendance-content">
+                                            <div class="saparator">
+                                                &nbsp;
+                                            </div>
+                                            <div class="monday">
+                                                <div class="grid-item present">
+                                                    <div class="descriptor">Outdoor activity</div>
+                                                </div>
+                                                <div class="grid-item present light">
+                                                    <div class="descriptor">Present, in class, leading activities, head of class</div>
+                                                </div>
+                                                <div class="grid-item present">
+                                                    <div class="descriptor">Present, in class</div>
+                                                </div>
+                                                <div class="grid-item present light"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present light"></div>
+                                                <div class="grid-item"></div>
+
+                                            </div>
+                                            <div class="tuesday">
+                                                <div class="grid-item late"></div>
+                                                <div class="grid-item excused light"></div>
+                                                <div class="grid-item excused"></div>
+                                                <div class="grid-item present light"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present light"></div>
+                                                <div class="grid-item"></div>
+
+                                            </div>
+                                            <div class="wednesday">
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item late light"></div>
+                                                <div class="grid-item unexcused"></div>
+                                                <div class="grid-item present light"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present light"></div>
+                                                <div class="grid-item"></div>
+                                                <div class="grid-item unexcused"></div>
+                                            </div>
+                                            <div class="thursday">
+                                                <div class="grid-item late"></div>
+                                                <div class="grid-item present light"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present light"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present light"></div>
+                                                <div class="grid-item "></div>
+
+                                            </div>
+                                            <div class="friday">
+                                                <div class="grid-item holiday"></div>
+                                                <div class="grid-item holiday light"></div>
+                                                <div class="grid-item holiday"></div>
+                                                <div class="grid-item holiday light"></div>
+                                                <div class="grid-item holiday"></div>
+                                                <div class="grid-item holiday light"></div>
+                                                <div class="grid-item "></div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="attendance-legend ">
+                                            <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">LEGEND</a>
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
+                                            <div class="panel legend-list" ng-show="icon_legend">
+                                                <!-- Default panel contents -->
+                                                <div class="panel-heading">
+                                                    LEGEND
+                                                    <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
+                                                </div>
+                                                <ul class="list-group legend-list">
+                                                    <li class="list-group-item present">PRESENT</li>
+                                                    <li class="list-group-item excused">EXCUSED</li>
+                                                    <li class="list-group-item late">LATE</li>
+                                                    <li class="list-group-item holiday">HOLIDAY</li>
+                                                    <li class="list-group-item unexcused">UNEXCUSED</li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="panel-heading attendance-behavior" role="tab" id="headingTwo">
-                                <h4 class="panel-title">
+                                <div class="panel-heading attendance-behavior" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">
                                 
                                  <ul class="flexbox attendance-behavior">
-                                    <li>
-                                        7/21/15 - 7/31/15
-                                     <span class="first-col-separator-list">
-                            </span>
-                                     </li>
+                                    <li class="first-col-separator">7/21/15 - 7/31/15</li>
                                     <li>100%</li>
                                     <li>100%</li>
                                     <li class="unexcused">10%</li>
                                     <li>100%</li>
                                     <li>100%</li>
-                                    <li>
-                                        <span class="last-col-separator-list">
-                            </span>
-                                        -12%
+                                    <li class="last-col-separator">-12%
                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseTwo" data-target="#collapseTwo" class="header-icon-attendance glyphicon glyphicon-chevron-down pull-right"></a>
                                      </li>
                                 </ul>   
                                 
                             </h4>
-                            </div>
-                            <!-- panel heading -->
-                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                <div class="panel-body attendance-behavior">
-                                    <div class="period-col">
-                                        <ul class="period-col menu">
-                                            <li>PERIOD 1</li>
-                                            <li>PERIOD 2</li>
-                                            <li>PERIOD 3</li>
-                                            <li>PERIOD 4</li>
-                                            <li>PERIOD 5</li>
-                                            <li>PERIOD 6</li>
-                                            <li>&nbsp;</li>
-                                            <li>BEHAVIOR</li>
-                                        </ul>
-                                    </div>
-                                    <div class="attendance-content">
-                                        <div class="monday">
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item"></div>
-
-                                        </div>
-                                        <div class="tuesday">
-                                            <div class="grid-item late"></div>
-                                            <div class="grid-item excused"></div>
-                                            <div class="grid-item excused"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item"></div>
-
-                                        </div>
-                                        <div class="wednesday">
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item late"></div>
-                                            <div class="grid-item unexcused"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item"></div>
-                                            <div class="grid-item unexcused"></div>
-                                        </div>
-                                        <div class="thursday">
-                                            <div class="grid-item late"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item present"></div>
-                                            <div class="grid-item "></div>
-
-                                        </div>
-                                        <div class="friday">
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item holiday"></div>
-                                            <div class="grid-item "></div>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="attendance-legend ">
-                                        <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">LEGEND</a>
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
-                                        <div class="panel legend-list" ng-show="icon_legend">
-                                            <!-- Default panel contents -->
-                                            <div class="panel-heading">
-                                                LEGEND
-                                                <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
-                                            </div>
-                                            <ul class="list-group legend-list">
-                                                <li class="list-group-item present">PRESENT</li>
-                                                <li class="list-group-item excused">EXCUSED</li>
-                                                <li class="list-group-item late">LATE</li>
-                                                <li class="list-group-item holiday">HOLIDAY</li>
-                                                <li class="list-group-item unexcused">UNEXCUSED</li>
+                                </div>
+                                <!-- panel heading -->
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body attendance-behavior">
+                                        <div class="period-col">
+                                            <ul class="period-col menu">
+                                                <li>PERIOD 1</li>
+                                                <li>PERIOD 2</li>
+                                                <li>PERIOD 3</li>
+                                                <li>PERIOD 4</li>
+                                                <li>PERIOD 5</li>
+                                                <li>PERIOD 6</li>
+                                                <li>&nbsp;</li>
+                                                <li>BEHAVIOR</li>
                                             </ul>
                                         </div>
-                                        
+                                        <div class="attendance-content">
+                                            <div class="saparator">
+                                                &nbsp;
+                                            </div>
+                                            <div class="monday">
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item"></div>
+
+                                            </div>
+                                            <div class="tuesday">
+                                                <div class="grid-item late"></div>
+                                                <div class="grid-item excused"></div>
+                                                <div class="grid-item excused"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item"></div>
+
+                                            </div>
+                                            <div class="wednesday">
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item late"></div>
+                                                <div class="grid-item unexcused"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item"></div>
+                                                <div class="grid-item unexcused"></div>
+                                            </div>
+                                            <div class="thursday">
+                                                <div class="grid-item late"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item present"></div>
+                                                <div class="grid-item "></div>
+
+                                            </div>
+                                            <div class="friday">
+                                                <div class="grid-item holiday"></div>
+                                                <div class="grid-item holiday"></div>
+                                                <div class="grid-item holiday"></div>
+                                                <div class="grid-item holiday"></div>
+                                                <div class="grid-item holiday"></div>
+                                                <div class="grid-item holiday"></div>
+                                                <div class="grid-item "></div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="attendance-legend ">
+                                            <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">LEGEND</a>
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
+                                            <div class="panel legend-list" ng-show="icon_legend">
+                                                <!-- Default panel contents -->
+                                                <div class="panel-heading">
+                                                    LEGEND
+                                                    <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
+                                                </div>
+                                                <ul class="list-group legend-list">
+                                                    <li class="list-group-item present">PRESENT</li>
+                                                    <li class="list-group-item excused">EXCUSED</li>
+                                                    <li class="list-group-item late">LATE</li>
+                                                    <li class="list-group-item holiday">HOLIDAY</li>
+                                                    <li class="list-group-item unexcused">UNEXCUSED</li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
+                            <!-- default panel -->
+
+
 
                         </div>
-                        <!-- default panel -->
-
-
-
+                        <!-- panel group -->
                     </div>
-                    <!-- panel group -->
+                    <!-- tab panel -->
+
+
+
+
+
+
+
+
+                    <div role="tabpanel" class="tab-pane" id="program_participation">Program participation</div>
+                    <div role="tabpanel" class="tab-pane" id="transcript">transcript</div>
+
+
+
                 </div>
-                <!-- tab panel -->
-
-
-
-
-
-
-
-
-                <div role="tabpanel" class="tab-pane" id="program_participation">Program participation</div>
-                <div role="tabpanel" class="tab-pane" id="transcript">transcript</div>
-
-
-
             </div>
         </div>
     </div>

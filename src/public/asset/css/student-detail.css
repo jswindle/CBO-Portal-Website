@@ -21,12 +21,17 @@ ul.flexbox.attendance-behavior {
     margin: 0;
     padding: 0;
 }
+.flexbox.attendance-behavior li {
+    margin-top: 5px!important;
+    margin-bottom: 5px!important;
+}
 ul.attendance-behavior li {
     padding: 0;
     margin: 0;
     text-align: center;
     height: 50px;
     line-height: 50px;
+    letter-spacing: 2px;
 }
 ul.attendance-behavior li:nth-child(1) {
     width: 25%;
@@ -81,12 +86,10 @@ ul.attendance-behavior li:nth-child(7) {
     right: 5%;
 }
 .legend-icon-attendance.glyphicon.glyphicon-chevron-up.pull-right {
-    
     color: black;
     top: 360px;
     position: relative;
     right: 1%;
-   
 }
 .panel-body.attendance-behavior {
     padding: 0;
@@ -100,6 +103,7 @@ ul.attendance-behavior li:nth-child(7) {
     padding: 0;
     float: left;
     padding-bottom: 5px;
+    letter-spacing: 2px;
 }
 .period-col {
     width: 25%;
@@ -145,7 +149,7 @@ ul.period-col.menu li {
     display: block;
 }
 .present {
-    background-color: #00B4BC;
+    background-color: #B1E0E8;
 }
 .excused {
     background-color: #2F9DBB;
@@ -185,28 +189,18 @@ ul.list-group.legend-list li {
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
 }
-.attendance-card {
-    border-bottom: solid 3px rgba(0, 0, 0, 0.1);
+.attendance-card-ssl {
+    border-bottom: solid 5px rgba(0, 0, 0, 0.1);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
 }
-.first-col-separator,
-.first-col-separator-list {
-    border-right: 4px solid #adadad;
-    position: relative;
-    left: 34%;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.first-col-separator {
+    border-right: 4px solid #adadad!important;
+    margin-top: 5px!important;
+    margin-bottom: 5px!important;
 }
-.first-col-separator-list {
-    left: 36.7%
-}
-.last-col-separator,
-.last-col-separator-list {
-    border-right: 4px solid #adadad;
-    position: relative;
-    left: -38%;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.last-col-separator {
+    border-left: 4px solid #adadad!important;
+    ;
 }
 .last-col-separator-list {
     left: -44.7%
@@ -217,11 +211,58 @@ ul.list-group.legend-list li {
 .show {
     display: "";
 }
-.button.btn-legend{
+.button.btn-legend {
     position: relative;
     left: 37%;
 }
-
-.icon-legend.glyphicon.glyphicon-remove.pull-right:hover{
+.icon-legend.glyphicon.glyphicon-remove.pull-right:hover {
     cursor: pointer;
+}
+.panel-group .panel {
+    border-radius: 0px!important;
+}
+.light {
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+.descriptor {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 92%;
+    background-color: #fff;
+    border: 1px solid #222;
+    padding: 0px 2px;
+    font-size: 10px;
+    line-height: 12px;
+    display: none;
+    text-indent: 0px;
+}
+.grid-item:hover .descriptor {
+    display: block;
+    height: auto;
+}
+.nav.nav-tabs.nav-justified.student-detail {
+    letter-spacing: 2px;
+}
+.list-group-item.late,
+.list-group-item.holiday,
+.list-group-item.unexcused {
+    color: white!important;
+}
+.saparator {
+    border: 2px solid #aaa;
+    line-height: 0;
+    position: relative;
+    top: 340px;
+}
+
+.col-divider{
+    overflow: hidden;
+    padding-bottom: 100px;
+    margin-bottom: -100px;
+    border-left: 2px solid #F2F7F9;
+    border-right: 2px solid #F2F7F9;
+    border-left: none;
+    border-right: none;
 }

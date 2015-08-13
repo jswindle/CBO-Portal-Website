@@ -4,7 +4,8 @@ var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
 				showLeftPush = document.getElementById( 'showLeftPush' ),
 				sidebarmenu = document.getElementById( 'collapse-sidebarmenu' ),
 				body = document.body;
-showLeftPush.onclick = function() {
+if(showLeftPush){
+ showLeftPush.onclick = function() {
 	var icon = $("#showLeftPush").attr('class');
 	classie.toggle( this, 'active' );
 	classie.toggle( body, 'cbp-spmenu-push-toright' );
@@ -17,8 +18,8 @@ showLeftPush.onclick = function() {
 	{
 		$("#showLeftPush").attr('class','glyphicon glyphicon-menu-hamburger');
 	}
-};
-
+};   
+}
 	sidebarmenu.onclick = function(){
 		if(status == 'open')
 		{

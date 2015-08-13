@@ -45,7 +45,7 @@
 </head>
 
 <body ng-controller="BodyController" class="cbp-spmenu-push" resize>
-<!--
+
     <div class="container-fluid">
         <div id="mobile" class="row" style="display:none">
             <div class="col-md-12">
@@ -72,12 +72,6 @@
                         <li ng-class="{ active: isActive('/profile') }">
                             <a ng-href="#/profile" style="width:55%;padding-left:0">ACCOUNT SETTINGS</a>
                         </li>
-                        <!--
-				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
-                    <a ng-href="#/tag">Tags</a>
-                </li>
-				
-
                     </ul>
                     <ul class="nav navbar-nav navbar-right" style="padding-left:15px;">
                         <li ng-class="{ active: isActive('/logout') }">
@@ -85,13 +79,11 @@
                         </li>
                     </ul>
                 </nav>
-
                 <div class="content" style="padding-left:65px;">
                     <div class="row">
                         <div class="col-md-12">
                             <div ng-if="showNavBar">
                                 <div class="error-container">
-
                                 </div>
                             </div>
                         </div>
@@ -111,7 +103,7 @@
             </div>
         </div>
     </div>
-    -->
+    
     <div id="desktop" style="display:none">
 
         <div id="side-panel">
@@ -146,11 +138,7 @@
                         <li ng-class="{ active: isActive('/logout') }">
                             <a href="javascript:void(0)" ng-click="logoutMe()" class="link-nav">LOGOUT</a>
                         </li>
-                        <!--
-				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
-                    <a class="link-nav" ng-href="#/tag">TAGS</a>
-                </li>
--->
+                       
 
 
                     </ul>
@@ -213,7 +201,6 @@
                     <a ng-href="#/tag">Tags</a>
                 </li>
 				
-
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li ng-class="{ active: isActive('/logout') }">
@@ -232,7 +219,6 @@
                 <div class="col-md-12">
                     <div ng-if="showNavBar">
                         <div id="error-container" style="margin-left:70px;">
-
                         </div>
                     </div>
                 </div>
