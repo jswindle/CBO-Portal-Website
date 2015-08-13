@@ -19,7 +19,7 @@
 								<a class="btn btn-default" ng-href="#/program/students/{{ program._id }}/add">
 									<span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add
 								</a>
-								<a class="btn btn-default" confirmed-click="deleteProgram(program._id, $index)"  ng-confirm-click="Are you sure want to delete this record?" ng-disabled="working">
+								<a class="btn btn-default" confirmed-click="deleteProgram(program._id, $index)"  ng-confirm-click="{{ 'general.confirm_delete' | i18n }}" ng-disabled="working">
 									<span class="glyphicon glyphicon-trash" aria-hidden="true"></span> {{ 'general.delete' | i18n }}
 								</a>
 						</div>

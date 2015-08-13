@@ -1885,9 +1885,7 @@ app.controller('ProgramStudentAddController', ['$rootScope', '$scope', '$routePa
                     showError(response.error.message, 1);
                 }
                 $rootScope.doingResolve = false;
-                $scope.program = {
-                    active: true
-                }
+                $scope.program ? $scope.program.active = true : $scope.program = { active: true };
             })
             .error(function (response, status) {
 
