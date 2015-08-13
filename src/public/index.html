@@ -45,7 +45,7 @@
 </head>
 
 <body ng-controller="BodyController" class="cbp-spmenu-push" resize>
-<!--
+
     <div class="container-fluid">
         <div id="mobile" class="row" style="display:none">
             <div class="col-md-12">
@@ -61,27 +61,27 @@
                             </div>
                         </li>
                         <li ng-class="{ active: isActive('/student') }">
-                            <a ng-href="#/student" style="width:55%;padding-left:0">DASHBOARD</a>
+                            <a ng-href="#/student" style="width:55%;padding-left:0">{{ 'general.dashboard' | i18n | uppercase }}</a>
                         </li>
                         <li ng-class="{ active: isActive('/user') }" ng-show="users_link">
-                            <a ng-href="#/user" style="width:55%;padding-left:0">USERS</a>
+                            <a ng-href="#/user" style="width:55%;padding-left:0">{{ 'general.users' | i18n | uppercase }}</a>
                         </li>
                         <li ng-class="{ active: isActive('/program') }">
-                            <a ng-href="#/program" style="width:55%;padding-left:0">PROGRAMS</a>
+                            <a ng-href="#/program" style="width:55%;padding-left:0">{{ 'general.programs' | i18n | uppercase }}</a>
                         </li>
                         <li ng-class="{ active: isActive('/profile') }">
-                            <a ng-href="#/profile" style="width:55%;padding-left:0">ACCOUNT SETTINGS</a>
+                            <a ng-href="#/profile" style="width:55%;padding-left:0">{{ 'general.account_settings' | i18n | uppercase }}</a>
                         </li>
                         <!--
 				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
                     <a ng-href="#/tag">Tags</a>
                 </li>
-				
+				-->
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right" style="padding-left:15px;">
                         <li ng-class="{ active: isActive('/logout') }">
-                            <a href="javascript:void(0)" ng-click="logoutMe()" style="width:55%;padding-left:0">LOGOUT</a>
+                            <a href="javascript:void(0)" ng-click="logoutMe()" style="width:55%;padding-left:0">{{ 'general.logout' | i18n | uppercase }}</a>
                         </li>
                     </ul>
                 </nav>
@@ -99,19 +99,19 @@
                     <ng-view ng-hide="doingResolve"></ng-view>
                     <div ng-if="showNavBar">
                         <div style="margin-left:70px;" class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
-                            <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> Loading</h2>
+                            <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h2>
                         </div>
                     </div>
                     <div ng-if="!showNavBar">
                         <div class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
-                            <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> Loading</h2>
+                            <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h2>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    -->
+
     <div id="desktop" style="display:none">
 
         <div id="side-panel">
@@ -132,19 +132,19 @@
                             </div>
                         </li>
                         <li ng-class="{ active: isActive('/student') }">
-                            <a ng-href="#/student" class="link-nav">DASHBOARD</a>
+                            <a ng-href="#/student" class="link-nav">{{ 'general.dashboard' | i18n | uppercase }}</a>
                         </li>
                         <li ng-class="{ active: isActive('/user') }" ng-show="users_link">
-                            <a ng-href="#/user" class="link-nav">USERS</a>
+                            <a ng-href="#/user" class="link-nav">{{ 'general.users' | i18n | uppercase }}</a>
                         </li>
                         <li ng-class="{ active: isActive('/program') }">
-                            <a ng-href="#/program" class="link-nav">PROGRAMS</a>
+                            <a ng-href="#/program" class="link-nav">{{ 'general.programs' | i18n | uppercase }}</a>
                         </li>
                         <li ng-class="{ active: isActive('/profile') }">
-                            <a ng-href="#/profile" class="link-nav">ACCOUNT SETTINGS</a>
+                            <a ng-href="#/profile" class="link-nav">{{ 'general.account_settings' | i18n | uppercase }}</a>
                         </li>
                         <li ng-class="{ active: isActive('/logout') }">
-                            <a href="javascript:void(0)" ng-click="logoutMe()" class="link-nav">LOGOUT</a>
+                            <a href="javascript:void(0)" ng-click="logoutMe()" class="link-nav">{{ 'general.logout' | i18n | uppercase }}</a>
                         </li>
                         <!--
 				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
@@ -170,12 +170,12 @@
             <ng-view ng-hide="doingResolve"></ng-view>
             <div ng-if="showNavBar">
                 <div style="margin-left:70px;" class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
-                    <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> Loading</h2>
+                    <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h2>
                 </div>
             </div>
             <div ng-if="!showNavBar">
                 <div class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
-                    <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> Loading</h2>
+                    <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h2>
                 </div>
             </div>
         </div>
@@ -197,16 +197,16 @@
                         </div>
                     </li>
                     <li ng-class="{ active: isActive('/student') }">
-                        <a ng-href="#/student" class="link-nav" style="padding-left:0;">DASHBOARD</a>
+                        <a ng-href="#/student" class="link-nav" style="padding-left:0;">{{ 'general.dashboard' | i18n | uppercase }}</a>
                     </li>
                     <li ng-class="{ active: isActive('/user') }" ng-show="users_link">
-                        <a ng-href="#/user" class="link-nav" style="padding-left:0;">USERS</a>
+                        <a ng-href="#/user" class="link-nav" style="padding-left:0;">{{ 'general.users' | i18n | uppercase }}</a>
                     </li>
                     <li ng-class="{ active: isActive('/program') }">
-                        <a ng-href="#/program" class="link-nav" style="padding-left:0;">PROGRAMS</a>
+                        <a ng-href="#/program" class="link-nav" style="padding-left:0;">{{ 'general.programs' | i18n | uppercase }}</a>
                     </li>
                     <li ng-class="{ active: isActive('/profile') }">
-                        <a ng-href="#/profile" class="link-nav" style="padding-left:0;">ACCOUNT SETTINGS</a>
+                        <a ng-href="#/profile" class="link-nav" style="padding-left:0;">{{ 'general.account_settings' | i18n | uppercase }}</a>
                     </li>
                     
 				<li ng-class="{ active: isActive('/tag') }" ng-show="tags_link">
@@ -217,7 +217,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li ng-class="{ active: isActive('/logout') }">
-                        <a href="javascript:void(0)" ng-click="logoutMe()" class="link-nav" style="padding-left:0;">LOGOUT</a>
+                        <a href="javascript:void(0)" ng-click="logoutMe()" class="link-nav" style="padding-left:0;">{{ 'general.logout' | i18n | uppercase }}</a>
                     </li>
                 </ul>
             </div>
@@ -240,12 +240,12 @@
             <ng-view ng-hide="doingResolve"></ng-view>
             <div ng-if="showNavBar">
                 <div style="margin-left:70px;" class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
-                    <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> Loading</h2>
+                    <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h2>
                 </div>
             </div>
             <div ng-if="!showNavBar">
                 <div class="jumbotron loading-jumbo text-center" ng-show="doingResolve">
-                    <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> Loading</h2>
+                    <h2><span  class="glyphicon glyphicon-refresh glyphicon-spin" aria-hidden="true"></span> {{ 'general.loading' | i18n }}</h2>
                 </div>
             </div>
         </div>
@@ -264,6 +264,9 @@
     <script src="asset/angular/angular.min.js"></script>
     <script src="asset/angular/angular-route.min.js"></script>
     <script src="asset/angular/angular-cookies.min.js"></script>
+    <script src="asset/angular-sanitize/angular-sanitize.min.js"></script>
+
+    <script src="asset/angular/angular-localization.js"></script>
     <script src="asset/angular-ui-date/date.js"></script>
     <script src="asset/angular-scrollable-table/angular-scrollable-table.min.js"></script>
 
@@ -284,9 +287,9 @@
 
     <script src="asset/index.js"></script>
 
-    <script src="asset/js/ui-bootstrap-tpls-0.13.2.js"></script>
+    <!--<script src="asset/js/ui-bootstrap-tpls-0.13.2.js"></script>-->
 
-    <script src="asset/js/isotope.pkgd.min.js"></script>
+    <!--<script src="asset/js/isotope.pkgd.min.js"></script>-->
 
 </body>
 

@@ -5,7 +5,7 @@
         <div class="card">
             <div class="col-md-12">
                 <div class="title">
-                    <h1><a href="#/student/add"><i class="glyphicon glyphicon-plus font16"></i> Add A Student</a></h1>
+                    <h1><a href="#/student/add"><i class="glyphicon glyphicon-plus font16"></i> {{ 'general.add_a_student' | i18n }}</a></h1>
                     <form class="form-inline" role="form" ng-submit="searchStudent(student)">
                         <input type="text" class="form-control" ng-model="search" name="search" id="search" placeholder="Search Student"/>
                         <span class="glyphicon glyphicon-search btn" aria-hidden="true"></span>
@@ -13,17 +13,17 @@
                 </div>
                 <div class="content">
 
-                    <h1 class="bold">Students</h1>
+                    <h1 class="bold">{{ 'general.students' | i18n }}</h1>
 
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>School ID</th>
-                                <th>School District</th>
-                                <th class="text-center" style="width:5%;">Edit</th>
-                                <th class="text-center" style="width:5%;">Delete</th>
+                                <th>{{ 'general.name' | i18n }}</th>
+                                <th>{{ 'general.school_id' | i18n }}</th>
+                                <th>{{ 'general.school_district' | i18n }}</th>
+                                <th class="text-center" style="width:5%;">{{ 'general.edit' | i18n }}</th>
+                                <th class="text-center" style="width:5%;">{{ 'general.delete' | i18n }}</th>
                             </tr>
                             </thead>
                             <tbody>

@@ -1,8 +1,16 @@
 'use strict';
 
 $(document).ready(function () {
-    
-    
+
+    function l() {
+        var s = d.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'https://widget.intercom.io/widget/m9w2ywgr';
+        var x = d.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+        console.log(x);
+    }
     
     window.intercomSettings = {
         app_id: "m9w2ywgr"
@@ -28,15 +36,6 @@ $(document).ready(function () {
                 };
                 w.Intercom = i;
 
-                function l() {
-                    var s = d.createElement('script');
-                    s.type = 'text/javascript';
-                    s.async = true;
-                    s.src = 'https://widget.intercom.io/widget/m9w2ywgr';
-                    var x = d.getElementsByTagName('script')[0];
-                    x.parentNode.insertBefore(s, x);
-                    console.log(x);
-                }
                 if (w.attachEvent) {
                     w.attachEvent('onload', l);
                 } else {

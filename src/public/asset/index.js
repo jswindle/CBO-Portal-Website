@@ -16,11 +16,24 @@ var schoolDistricts = {
     'federalway': "Federal Way",
     'renton': 'Renton',
     'northshore': 'North Shore'
-}
+};
+
+var testMode = true;
 
 var global_redirect_url = '/';
 
-var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ui.bootstrap']);
+var app = angular.module('CboPortal', ['ngRoute', 'ngCookies', 'ngPrettyJson', 'ui.date', 'anguFixedHeaderTable', 'scrollable-table', 'ngLocalize',
+    'ngLocalize.Config'
+]).value('localeConf', {
+    basePath: 'languages',
+    defaultLocale: 'en-US',
+    sharedDictionary: 'general',
+    fileExtension: '.lang.json',
+    persistSelection: true,
+    cookieName: 'COOKIE_LOCALE_LANG_',
+    observableAttrs: new RegExp('^data-(?!ng-|i18n)'),
+    delimiter: '::'
+});
 
 app.factory('headerInjector', [function (SessionService) {
     var headerInjector = {
@@ -41,7 +54,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common['Accept'] = '*/*';
-    //$httpProvider.interceptors.push('headerInjector');
+    if(testMode) $httpProvider.interceptors.push('headerInjector');
 
 }]);
 
@@ -2812,7 +2825,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
                             if (responseClient.success == true && responseClient.total > 0) {
                                 for (var i = 0; i < responseClient.total; i++) {
-                                    if (get_hosting_name == responseClient.data[i].url) {
+                                    if (testMode || get_hosting_name == responseClient.data[i].url) {
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;
