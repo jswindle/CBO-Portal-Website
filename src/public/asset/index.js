@@ -54,69 +54,18 @@ app.factory('myErrorRequest', [function($location, CookieStore) {
 
 }]);
 
-app.factory('ClockSrv', function($interval){
-    'use strict';
-    var service = {
-        clock: addClock,
-        cancelClock: removeClock
-    };
-
-    var clockElts = [];
-    var clockTimer = null;
-    var cpt = 0;
-
-    function addClock(fn){
-        var elt = {
-            id: cpt++,
-            fn: fn
-        };
-        clockElts.push(elt);
-        if(clockElts.length === 1){ startClock(); }
-        return elt.id;
-    }
-    function removeClock(id){
-        for(var i in clockElts){
-            if(clockElts[i].id === id){
-                clockElts.splice(i, 1);
-            }
-        }
-        if(clockElts.length === 0){ stopClock(); }
-    }
-    function startClock(){
-        if(clockTimer === null){
-            clockTimer = $interval(function(){
-                for(var i in clockElts){
-                    clockElts[i].fn();
-                }
-            }, 1000);
-        }
-    }
-    function stopClock(){
-        if(clockTimer !== null){
-            $interval.cancel(clockTimer);
-            clockTimer = null;
-        }
-    }
-
-    return service;
-});
-
-app.factory('myCheckToken', function ($http, $location, $interval, CookieStore, AuthenticationService) {
+app.factory('myRefreshToken', function ($http, $location, $interval, CookieStore, AuthenticationService) {
 
     var checkToken = {};
-
-    console.log($interval);
 
     var timeInterval = 1 * 10 * 1 * 1000;
     var startLoopRefreshMe;
     var loopRefreshMe = function() {
 
-        console.log("try loop");
         var refresh_token = AuthenticationService.refresh_token;
 
         if(refresh_token.toString().length > 0)
         {
-
             var auth = base64_encode(globalConfig.client_id + ':' + globalConfig.client_secret);
             var grant_type = encodeURIComponent(globalConfig.grant_type);
             var uri = auth_url + 'oauth2/token';
@@ -153,6 +102,10 @@ app.factory('myCheckToken', function ($http, $location, $interval, CookieStore, 
                 });
 
         }
+        else
+        {
+            checkToken.stop_refresh_token();
+        }
 
     };
 
@@ -173,6 +126,10 @@ app.factory('myCheckToken', function ($http, $location, $interval, CookieStore, 
 
         startLoopRefreshMe = $interval(loopRefreshMe, timeInterval);
 
+    };
+
+    checkToken.check_refresh_token = function() {
+        loopRefreshMe();
     };
 
     return checkToken;
@@ -428,11 +385,9 @@ function ($window, $rootScope) {
 }]);
 
 
-app.run(function ($rootScope, $http, $location, $interval, $window, AuthenticationService, CookieStore, myCheckToken) {
+app.run(function ($rootScope, $http, $location, $interval, $window, AuthenticationService, CookieStore, myRefreshToken) {
 
     var returnData = CookieStore.getData();
-
-    myCheckToken.start_refresh_token();
 
     $rootScope.$on("$routeChangeStart", function (event, nextRoute) {
         //redirect only if both isAuthenticated is false and no token is set
@@ -446,6 +401,8 @@ app.run(function ($rootScope, $http, $location, $interval, $window, Authenticati
         }
 
         if (returnData) {
+            myRefreshToken.check_refresh_token();
+            myRefreshToken.start_refresh_token();
             start_time_idle();
         }
 
@@ -3034,8 +2991,11 @@ app.controller('LoginController', ['$rootScope', '$scope', '$interval', '$http',
 
 
                                             }
+
+                                            myRefreshToken.start_refresh_token();
                                             start_time_idle();
                                             $location.path('/');
+
                                         } else {
                                             showError(response.error.message, 1);
                                         }
