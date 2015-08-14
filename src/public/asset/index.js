@@ -64,7 +64,7 @@ app.factory('myRefreshToken', function ($http, $location, $interval, CookieStore
 
         var refresh_token = AuthenticationService.refresh_token;
 
-        if(refresh_token.length > 0)
+        if( ( typeof refresh_token !== 'undefined' || typeof refresh_token !== null ) && refresh_token.length > 0)
         {
             var auth = base64_encode(globalConfig.client_id + ':' + globalConfig.client_secret);
             var grant_type = encodeURIComponent(globalConfig.grant_type);
@@ -112,10 +112,7 @@ app.factory('myRefreshToken', function ($http, $location, $interval, CookieStore
 
     checkToken.stop_refresh_token = function() {
 
-        console.log("try stop loop");
-
         if (angular.isDefined(startLoopRefreshMe)) {
-            console.log("try stop loop success");
             $interval.cancel(startLoopRefreshMe);
             startLoopRefreshMe = undefined;
         }
@@ -614,7 +611,6 @@ app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 
                 })
                 .error(function (response, status) {
 
-                    console.log('fail');
                     console.log(response);
                     console.log(status);
 
@@ -1000,7 +996,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
             .success(function (response) {
                 $scope.case_workers = response._embedded.users;
                 if (typeof response.success !== 'undefined' && response.success == false) {
-                    console.log("fail to get");
+
                 } else {
                     if (typeof response.attendance.summaries !== 'undefined' && response.attendance.summaries) {
                         $scope.daysAttendance = parseInt(response.attendance.summaries.summary.daysInAttendance);
@@ -3530,11 +3526,9 @@ function base64_encode(data) {
 
 
 function start_time_idle() {
-    console.log("trigger idle start");
     session_timeout.login();
 }
 
 function stop_time_idle() {
-    console.log("trigger idle stop");
     session_timeout.logout();
 }
