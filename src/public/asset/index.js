@@ -16,9 +16,7 @@ var schoolDistricts = {
     'federalway': "Federal Way",
     'renton': 'Renton',
     'northshore': 'North Shore'
-};
-
-var testMode = true;
+}
 
 var global_redirect_url = '/';
 
@@ -54,7 +52,7 @@ app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.patch = {};
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
     $httpProvider.defaults.headers.common['Accept'] = '*/*';
-    if(testMode) $httpProvider.interceptors.push('headerInjector');
+    //$httpProvider.interceptors.push('headerInjector');
 
 }]);
 
@@ -443,7 +441,7 @@ app.factory('CookieStore', function ($rootScope, $window, $cookieStore, Authenti
 
 app.controller('BodyController', ['$rootScope', '$scope', '$http', '$location', 'CookieStore', 'AuthenticationService',
     function ($rootScope, $scope, $http, $location, CookieStore, AuthenticationService) {
-        $rootScope.data_content = "asset/templates/desktop.html";    
+        $rootScope.data_content = "asset/templates/desktop.html";
         $rootScope.full_screen = false;
         if (CookieStore.get('cboAdmin_cookie_role') == 'admin') {
             $rootScope.users_link = true;
@@ -843,7 +841,7 @@ app.controller('StudentDetailController', ['$rootScope', '$scope', '$routeParams
                             }
                         })
                             .success(function(response_program) {
-								
+
                                 var cohort = temp_single_program.cohort;
                                 var temp = {
                                     name: response_program.name,
@@ -2823,7 +2821,7 @@ app.controller('LoginController', ['$rootScope', '$scope', '$http', '$location',
 
                             if (responseClient.success == true && responseClient.total > 0) {
                                 for (var i = 0; i < responseClient.total; i++) {
-                                    if (testMode || get_hosting_name == responseClient.data[i].url) {
+                                    if (get_hosting_name == responseClient.data[i].url) {
                                         grand_access = true;
                                         get_id = responseClient.data[i]._id;
                                         get_redirect_url = responseClient.data[i].url;

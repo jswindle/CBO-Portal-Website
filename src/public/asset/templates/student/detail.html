@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <h2>
                     {{ student.first_name }} {{ student.last_name }}
-                    <span class="last-update">Last update : &nbsp {{ student.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
+                    <span class="last-update">{{ 'general.last_update' | i18n }} : &nbsp {{ student.last_updated | date : 'MM/dd/yyyy HH:mm:ss' : timezone }}</span>
                     </h2>
                 </div>
             </div>
@@ -15,20 +15,20 @@
 
                     <div class="row col-md-4">
                         <div class="title">
-                            <p class="subhead">PERSONAL INFO</p>
+                            <p class="subhead">{{ 'general.personal_info' | i18n | uppercase }}</p>
                             <hr>
                         </div>
                         <div class="content">
-                            <b>District ID</b> {{ student.district_student_id }}
+                            <b>{{ 'general.district_id' | i18n }}</b> {{ student.district_student_id }}
                             <br/>
-                            <b>Birthday</b> {{studentdetails.demographics.birthDate | date : 'MM/dd/yyyy' : timezone}}
+                            <b>{{ 'general.brithday' | i18n }}</b> {{studentdetails.demographics.birthDate | date : 'MM/dd/yyyy' : timezone}}
                             <br/>
-                            <b>Race/Ethnicity</b> {{studentdetails.demographics.races.race.race}}
+                            <b>{{ 'general.race_ethnicity' | i18n }}</b> {{studentdetails.demographics.races.race.race}}
                             <br/>
-                            <b>Gender</b> {{studentdetails.demographics.sex}}
+                            <b>{{ 'general.gender' | i18n }}</b> {{studentdetails.demographics.sex}}
                         </div>
                         <div class="title">
-                            <p class="subhead" style="margin-top:20px;">PERSONAL CONTACT</p>
+                            <p class="subhead" style="margin-top:20px;">{{ 'general.personal_contact' | i18n | uppercase }}</p>
                             <hr>
                         </div>
                         <div class="content">
@@ -39,7 +39,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="title">
-                            <p class="subhead">EMERGENCY CONTACTS</p>
+                            <p class="subhead">{{ 'general.emergency_contacts' | i18n | uppercase }}</p>
                             <hr>
                         </div>
                         <div class="content">
@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="title">
-                            <p class="subhead">Case Workers</p>
+                            <p class="subhead">{{ 'general.case_workers' | i18n }}</p>
                             <hr>
                         </div>
                         <div class="content">
@@ -77,18 +77,18 @@
                     <div ng-show="academic">
                         <div class="row col-md-4">
                             <div class="title">
-                                <p class="subhead">ACADEMIC INFO</p>
+                                <p class="subhead">{{ 'general.academic_info' | i18n | uppercase }}</p>
                                 <hr>
                             </div>
                             <div class="content" style="margin-bottom:20px;">
-                                <b>Current School</b> {{studentdetails.transcriptTerm.school.schoolName}}
+                                <b>{{ 'general.current_school' | i18n }}</b> {{studentdetails.transcriptTerm.school.schoolName}}
                                 <br/>
-                                <b>Expected Graduation Year</b> {{studentdetails.transcriptTerm.schoolYear}}
+                                <b>{{ 'general.expected_graduation_year' | i18n }}</b> {{studentdetails.transcriptTerm.schoolYear}}
                                 <br/>
-                                <b>Grade level</b> N/A
+                                <b>{{ 'general.grade_level' | i18n }}</b> {{ 'general.n_a' | i18n | uppercase }}
                                 <br/>
                             </div>
-                            <a href="#" class="button" ng-click="showSchoolHistory()" style="display:inline-block">SEE SCHOOL HISTORY</a>
+                            <a href="#" class="button" ng-click="showSchoolHistory()" style="display:inline-block">{{ 'general.see_school_history' | i18n }}</a>
                         </div>
 
                         <div class="col-md-4">
@@ -96,20 +96,20 @@
                                 <p class="subhead">&nbsp;</p>
                             </div>
                             <div class="content" style="margin-top:20px;">
-                                <b>Language Spoken at Home</b> N/A
+                                <b>{{ 'general.language_spoken_at_home' | i18n }}</b> {{ 'general.n_a' | i18n | uppercase }}
                                 <br/>
-                                <b>IEP</b> N/A
+                                <b>IEP</b> {{ 'general.n_a' | i18n | uppercase }}
                                 <br/>
-                                <b>S504</b> N/A
+                                <b>S504</b> {{ 'general.n_a' | i18n | uppercase }}
                                 <br/>
-                                <b>Free or Reduced Lunch</b> N/A
+                                <b>{{ 'general.free_or_reduced_lunch' | i18n }}</b> {{ 'general.n_a' | i18n | uppercase }}
                                 <br/>
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="title">
-                                <p class="subhead">CURRENT COURSES - <b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
+                                <p class="subhead">{{ 'general.current_courses' | i18n | uppercase }} - <b>{{studentdetails.transcriptTerm.schoolYear}}</b></p>
                                 <hr>
                             </div>
                             <div class="content">
@@ -126,7 +126,7 @@
                     <div ng-show="sch_history">
 
                         <div class="title">
-                            <p class="subhead">School History</p>
+                            <p class="subhead">{{ 'general.school_history' | i18n }}</p>
                         </div>
                         <div class="content">
 
@@ -135,8 +135,8 @@
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>School Name</th>
-                                            <th>School Year</th>
+                                            <th>{{ 'general.school_name' | i18n }}</th>
+                                            <th>{{ 'general.school_year' | i18n }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -158,7 +158,7 @@
 
                         <div class="clearfix"></div>
                     </div>
-                    <a href="#" class="button pull-right" ng-click="closeSchoolHistory()" ng-show="sch_history">Close</a>
+                    <a href="#" class="button pull-right" ng-click="closeSchoolHistory()" ng-show="sch_history">{{ 'general.close' | i18n }}</a>
                 </div>
 
             </div>
@@ -179,9 +179,9 @@
         <div class="col-md-12">
 
             <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li class="active"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior">ATTENDANCE AND BEHAVIOR</a></li>
-                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation">PROGRAM PARTICIPATION</a></li>
-                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript">TRANSCRIPT</a></li>
+                <li class="active"><a href="javascript:;" role="tab" data-toggle="tab" data-target="#attendance_and_behavior">{{ 'general.attendance_and_behavior' | i18n | uppercase }}</a></li>
+                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#program_participation">{{ 'general.program_participation' | i18n | uppercase }}</a></li>
+                <li><a href="javascript:;" role="tab" data-toggle="tab" data-target="#transcript">{{ 'general.transcript' | i18n | uppercase }}</a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -189,19 +189,19 @@
                 <div role="tabpanel" class="tab-pane active" id="attendance_and_behavior">
                     <ul class="flexbox attendance-behavior">
                         <li>
-                            ATTENDANCE DATES
+                            {{ 'general.attendance_dates' | i18n | uppercase }}
                             <span class="first-col-separator">
                             </span>
                         </li>
-                        <li>M</li>
-                        <li>T</li>
-                        <li>W</li>
-                        <li>TH</li>
-                        <li>F</li>
+                        <li>{{ 'general.M' | i18n | uppercase }}</li>
+                        <li>{{ 'general.T' | i18n | uppercase }}</li>
+                        <li>{{ 'general.W' | i18n | uppercase }}</li>
+                        <li>{{ 'general.TH' | i18n | uppercase }}</li>
+                        <li>{{ 'general.F' | i18n | uppercase }}</li>
                         <li>
                              <span class="last-col-separator">
                             </span>
-                            DELTA CHANGE
+                            {{ 'general.delta_change' | i18n | uppercase }}
                         </li>
                     </ul>
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -236,14 +236,14 @@
                                 <div class="panel-body attendance-behavior">
                                     <div class="period-col">
                                         <ul class="period-col menu">
-                                            <li>PERIOD 1</li>
-                                            <li>PERIOD 2</li>
-                                            <li>PERIOD 3</li>
-                                            <li>PERIOD 4</li>
-                                            <li>PERIOD 5</li>
-                                            <li>PERIOD 6</li>
+                                            <li>{{ 'general.period_for' | i18n:[1] | uppercase }}</li>
+                                            <li>{{ 'general.period_for' | i18n:[2] | uppercase }}</li>
+                                            <li>{{ 'general.period_for' | i18n:[3] | uppercase }}</li>
+                                            <li>{{ 'general.period_for' | i18n:[4] | uppercase }}</li>
+                                            <li>{{ 'general.period_for' | i18n:[5] | uppercase }}</li>
+                                            <li>{{ 'general.period_for' | i18n:[6] | uppercase }}</li>
                                             <li>&nbsp;</li>
-                                            <li>BEHAVIOR</li>
+                                            <li>{{ 'general.behavior' | i18n | uppercase }}</li>
                                         </ul>
                                     </div>
                                     <div class="attendance-content">
@@ -300,20 +300,20 @@
 
                                     </div>
                                     <div class="attendance-legend ">
-                                        <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">LEGEND</a>
+                                        <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">{{ 'general.legend' | i18n | uppercase }}</a>
                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
                                         <div class="panel legend-list" ng-show="icon_legend">
                                             <!-- Default panel contents -->
                                             <div class="panel-heading">
-                                                LEGEND
+                                                {{ 'general.legend' | i18n | uppercase }}
                                                 <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
                                             </div>
                                             <ul class="list-group legend-list">
-                                                <li class="list-group-item present">PRESENT</li>
-                                                <li class="list-group-item excused">EXCUSED</li>
-                                                <li class="list-group-item late">LATE</li>
-                                                <li class="list-group-item holiday">HOLIDAY</li>
-                                                <li class="list-group-item unexcused">UNEXCUSED</li>
+                                                <li class="list-group-item present">{{ 'general.present' | i18n | uppercase }}</li>
+                                                <li class="list-group-item excused">{{ 'general.excused' | i18n | uppercase }}</li>
+                                                <li class="list-group-item late">{{ 'general.late' | i18n | uppercase }}</li>
+                                                <li class="list-group-item holiday">{{ 'general.holiday' | i18n | uppercase }}</li>
+                                                <li class="list-group-item unexcused">{{ 'general.unexcused' | i18n | uppercase }}</li>
                                             </ul>
                                         </div>
                                         
@@ -350,14 +350,14 @@
                                 <div class="panel-body attendance-behavior">
                                     <div class="period-col">
                                         <ul class="period-col menu">
-                                            <li>PERIOD 1</li>
-                                            <li>PERIOD 2</li>
-                                            <li>PERIOD 3</li>
-                                            <li>PERIOD 4</li>
-                                            <li>PERIOD 5</li>
-                                            <li>PERIOD 6</li>
+                                            <li>{{ 'general.period_for' | i18n:[1] | uppercase }}</li>
+                                            <li>{{ 'general.period_for' | i18n:[2] | uppercase }}</li>
+                                            <li>{{ 'general.period_for' | i18n:[3] | uppercase }}</li>
+                                            <li>{{ 'general.period_for' | i18n:[4] | uppercase }}</li>
+                                            <li>{{ 'general.period_for' | i18n:[5] | uppercase }}</li>
+                                            <li>{{ 'general.period_for' | i18n:[6] | uppercase }}</li>
                                             <li>&nbsp;</li>
-                                            <li>BEHAVIOR</li>
+                                            <li>{{ 'general.behavior' | i18n | uppercase }}</li>
                                         </ul>
                                     </div>
                                     <div class="attendance-content">
@@ -414,20 +414,20 @@
 
                                     </div>
                                     <div class="attendance-legend ">
-                                        <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">LEGEND</a>
+                                        <a ng-click="open()" class="button btn-legend open_button" ng-show="open_button">{{ 'general.legend' | i18n }}</a>
                                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="javascript:;" aria-expanded="true" aria-controls="collapseOne" data-target="#collapseOne" class="legend-icon-attendance glyphicon glyphicon-chevron-up pull-right"></a>
                                         <div class="panel legend-list" ng-show="icon_legend">
                                             <!-- Default panel contents -->
                                             <div class="panel-heading">
-                                                LEGEND
+                                                {{ 'general.legend' | i18n | uppercase }}
                                                 <span ng-click="close()" class="glyphicon glyphicon-remove pull-right"></span>
                                             </div>
                                             <ul class="list-group legend-list">
-                                                <li class="list-group-item present">PRESENT</li>
-                                                <li class="list-group-item excused">EXCUSED</li>
-                                                <li class="list-group-item late">LATE</li>
-                                                <li class="list-group-item holiday">HOLIDAY</li>
-                                                <li class="list-group-item unexcused">UNEXCUSED</li>
+                                                <li class="list-group-item present">{{ 'general.present' | i18n | uppercase }}</li>
+                                                <li class="list-group-item excused">{{ 'general.excused' | i18n | uppercase }}</li>
+                                                <li class="list-group-item late">{{ 'general.late' | i18n | uppercase }}</li>
+                                                <li class="list-group-item holiday">{{ 'general.holiday' | i18n | uppercase }}</li>
+                                                <li class="list-group-item unexcused">{{ 'general.unexcused' | i18n | uppercase }}</li>
                                             </ul>
                                         </div>
                                         
@@ -452,8 +452,8 @@
 
 
 
-                <div role="tabpanel" class="tab-pane" id="program_participation">Program participation</div>
-                <div role="tabpanel" class="tab-pane" id="transcript">transcript</div>
+                <div role="tabpanel" class="tab-pane" id="program_participation">{{ 'general.program_participation' | i18n | uppercase }}</div>
+                <div role="tabpanel" class="tab-pane" id="transcript">{{ 'general.transcript' | i18n | uppercase }}</div>
 
 
 
