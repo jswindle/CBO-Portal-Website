@@ -58,13 +58,13 @@ app.factory('myRefreshToken', function ($http, $location, $interval, CookieStore
 
     var checkToken = {};
 
-    var timeInterval = 1 * 10 * 1 * 1000;
+    var timeInterval = 1 * 58 * 60 * 1000;
     var startLoopRefreshMe;
     var loopRefreshMe = function() {
 
         var refresh_token = AuthenticationService.refresh_token;
 
-        if(refresh_token.toString().length > 0)
+        if(refresh_token.length > 0)
         {
             var auth = base64_encode(globalConfig.client_id + ':' + globalConfig.client_secret);
             var grant_type = encodeURIComponent(globalConfig.grant_type);
@@ -375,7 +375,8 @@ app.run(['$window', '$rootScope',
 function ($window, $rootScope) {
         $rootScope.goBack = function () {
             $window.history.back();
-        }
+        };
+
         var element = angular.element("#login-container");
         if ($window.innerWidth > 767) {
             $rootScope.loginClass = "col-md-offset-4 col-md-5 login-page";
@@ -2874,8 +2875,8 @@ app.controller('HeartbeatController', ['$rootScope', '$scope',
     }
 ]);
 
-app.controller('LoginController', ['$rootScope', '$scope', '$interval', '$http', '$location', 'AuthenticationService', 'CookieStore',
-    function ($rootScope, $scope, $interval, $http, $location, AuthenticationService, CookieStore) {
+app.controller('LoginController', ['$rootScope', '$scope', '$interval', '$http', '$location', 'AuthenticationService', 'CookieStore', 'myRefreshToken',
+    function ($rootScope, $scope, $interval, $http, $location, AuthenticationService, CookieStore, myRefreshToken) {
 
         stop_time_idle();
 
@@ -2908,8 +2909,6 @@ app.controller('LoginController', ['$rootScope', '$scope', '$interval', '$http',
                     }
                 })
                 .success(function (response) {
-
-                    console.log(response);
 
                     $http.get(api_url + 'organizations', {
                             headers: {
